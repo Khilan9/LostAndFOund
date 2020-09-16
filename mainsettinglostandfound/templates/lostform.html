@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{%load static %}
+<html>
+<head>
+  <title>Lost Item Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{%static 'lostform.css' %} "></link>
+
+  <script type="text/javascript">
+    function check()
+    { 
+      var x = document.getElementById('ab').value;
+      var y = document.getElementById('cd').value;
+      var z = document.getElementById('ef').value;
+        if (x == null || x == 0 || x == "0" || y == null || y == 0 || y == "0" || z == null || z == 0 || z == "0") 
+        {
+            alert("Please enter all values");
+        }
+        else
+            document.form.submit();
+    }
+    </script>
+
+</head>
+
+<body>
+<nav class="navbar fixed-top navbar-expand-sm navbar-light " >  
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/webmainpage">Home </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="#" >About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/logout" >Logout</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav><br><br>
+<div class="container">
+  <div class="row justify-content-center">
+    <form class="form col-md-5 " name="form"  method="POST" action="/storelost">
+      {% csrf_token %}
+      <u><h2>Register your Lost Item</h2><br></u>
+      
+      <div class="form-group" >
+        <label >Select Item that you have lost</label>
+        <select  class="form-control" name="selectitem">
+          <option>ID card</option>
+          <option>Mobile Phone</option>
+          <option>Wallet</option>
+          <option>Jewellery</option>
+          <option>Pendrive</option>
+          <option>Hard Disk</option>
+          <option>Headphone</option>
+          <option>Power bank</option>
+          <option>Keys</option>
+          <option>Sunglasses</option>
+          <option>Charger</option>
+          <option>Book</option>
+          <option>Charger</option>
+        </select>
+      </div>
+
+      <div class="form-group" >
+          <label>Color of item</label>
+          <input type="text" id="ab" class="form-control" placeholder="Color" name="color">      
+      </div>
+
+      <div class="form-group" >
+          <label>Brand of item</label>
+          <input type="text" id="cd" class="form-control" placeholder="Brand Name" name="brand">
+      </div>
+
+
+      <div class="form-group" >
+        <label >Select place from where it get lost</label>
+        <select  class="form-control" name="place" >
+          <option>Classroom</option>
+          <option>Lab</option>
+          <option>Library</option>
+          <option>CF</option>
+          <option>Canteen</option>
+          <option>Campus</option>
+          
+        </select>
+      </div>
+
+      <div class="form-group" >
+        <label>Date of lost</label><br>
+        <input type="Date" name="date" id="ef">
+      </div>
+
+      <div class="form-group" >
+        <label>Reward</label><small>  (optional)</small><br>
+        <input type="text" class="form-control" name="reward">
+      </div>
+
+      <div class="form-group" >
+        <label >Description about item</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+      </div>
+
+
+    <input type="button" value="Submit" onclick='check()'/>
+
+    </form>
+
+  </div> 
+  
+
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

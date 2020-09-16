@@ -1,0 +1,236 @@
+<!--<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Signup page</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'login.css'%} ">
+       
+	<script type="text/javascript">
+		function check()
+		{ 
+			if(document.getElementById("userid").value=="")
+			{
+				alert("Please enter Id");
+			}
+			
+			if(document.getElementById("phoneno").value=="")
+			{
+				alert("Please enter Phoneno");
+			}
+			
+
+			if(document.getElementById("name").value=="" && document.getElementById("email").value=="" && document.getElementById("password").value=="")
+			{
+				alert("Please enter Username E-mail and Password");
+			}
+                        else if(document.getElementById("username").value=="" && document.getElementById("email").value=="")
+                                alert("Please enter Username and E-mail");
+                        else if(document.getElementById("username").value=="" && document.getElementById("password").value=="")
+                                alert("Please enter Username and password");
+                        else if(document.getElementById("email").value=="" && document.getElementById("password").value=="")
+                                alert("Please enter E-mail and Password");
+			else if(document.getElementById("username").value=="")
+				alert("Please enter Username");
+			else if(document.getElementById("password").value=="")
+				alert("Please enter Password");
+                        else if(document.getElementById("email").value=="")
+                                alert("Please enter Email");
+                        else
+                        {
+                            var y=document.getElementById("email").value;
+							var reg = /^([A-Za-z0-9_\-\.])+\@ddu.ac.in$/;
+                            //var email= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                            if(reg.test(y))
+                            {}
+                            else
+                            {
+                                    alert("enter valid email");
+                                    return false;
+                            }
+                        }
+                       
+		}
+	</script>
+
+</head>
+<body>
+	
+<div class="box">
+	<h1>Signup</h1>
+	<form action="newuser" class="post-form" method="POST">
+    {% csrf_token %}
+		<div class="inputbox">
+            
+			<input type="text" id="userid" name="userid" required="">
+			<label>Id</label>
+            
+		</div>
+
+		<div class="inputbox">
+		<input type="text" id="name" name="name" required="">
+		<label>Name</label>
+		</div>
+
+		<div class="inputbox">
+		<input type="text" id="phoneno" name="phoneno" required="">
+		<label>Phoneno</label>
+		</div>
+
+		<div class="inputbox">
+		<input type="text" id="email" name="email" required="">
+		<label>E-mail</label>
+		</div>	
+		<div class="inputbox">
+                    <input type="password" id="password" name="password" required="">
+		<label>Password</label>
+		</div>	
+
+            <input type="submit" onclick="check();" value="Signup">
+	</form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup page</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'login.css'%} ">
+       
+  <script type="text/javascript">
+    function check()
+    { 
+      if(document.getElementById("userid").value=="")
+      {
+        alert("Please enter Id");
+      }
+      
+      if(document.getElementById("phoneno").value=="")
+      {
+        alert("Please enter Phoneno");
+      }
+      if(document.getElementById("name").value=="")
+      {
+        alert("Please enter Name");
+      }
+      var reg = /^([A-Za-z0-9_\-\.])+\@ddu.ac.in$/;
+      if(document.getElementById("email").value=="" )
+      {
+        alert("Please enter E-mail");
+      }
+
+      else if( reg.test(document.getElementById("email").value) ==false)
+      {
+        alert("Please enter ddu email id.");
+        return false;
+      }
+
+      if(document.getElementById("password").value=="")
+      {
+        alert("Please enter Password");
+      }
+/*
+      if(document.getElementById("name").value=="" && document.getElementById("email").value=="" && document.getElementById("password").value=="")
+      {
+        alert("Please enter Username E-mail and Password");
+      }
+                        else if(document.getElementById("username").value=="" && document.getElementById("email").value=="")
+                                alert("Please enter Username and E-mail");
+                        else if(document.getElementById("username").value=="" && document.getElementById("password").value=="")
+                                alert("Please enter Username and password");
+                        else if(document.getElementById("email").value=="" && document.getElementById("password").value=="")
+                                alert("Please enter E-mail and Password");
+      else if(document.getElementById("username").value=="")
+        alert("Please enter Username");
+      else if(document.getElementById("password").value=="")
+        alert("Please enter Password");
+                        else if(document.getElementById("email").value=="")
+                                alert("Please enter Email");
+                        else
+                        {
+                            var x=document.getElementById("email").value;
+                            var email1= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                            if(email1.test(x))
+                            {}
+                            else
+                            {
+                                    alert("enter valid email");
+                                    return false;
+                            }
+                        }
+                       */
+    }
+  </script>
+  
+</head>
+<body style="background-color:#9de3f0;">
+  
+<div class="box">
+  <h1>Signup</h1>
+  <form action="newuser" class="post-form" method="POST">
+    {% csrf_token %}
+    <div class="inputbox">
+            
+      <input type="text" id="userid" name="userid" required="">
+      <label>Id</label>
+            
+    </div>
+
+    <div class="inputbox">
+    <input type="text" id="name" name="name" required="">
+    <label>Name</label>
+    </div>
+
+    <div class="inputbox">
+    <input type="text" id="phoneno" name="phoneno" required="">
+    <label>Phoneno</label>
+    </div>
+
+    <div class="inputbox">
+    <input type="text" id="email" name="email" required="">
+    <label>E-mail</label>
+    </div>  
+    <div class="inputbox">
+                    <input type="password" id="password" name="password" required="">
+    <label>Password</label>
+    </div>  
+
+            <input type="submit" onclick="check();" value="Signup">
+  </form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+
+         
+   
+
+
+
+
+         
+   

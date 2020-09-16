@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Main page</title>
+	<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'webmainpage.css'%} ">
+
+ 
+</head>
+
+<body>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-light " >  
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/webmainpage">Home </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="#" >Chat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/logout" >Logout</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+
+  <br><br><br>
+  
+  <p class=" text-center p1"  style="color:black ;background-color: rgba(50, 115, 220, 0.7); padding: 20px; font-family:Arial ;font-weight: bold;font-size:65px">Welcome to lost and found portal of DDU</p>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{% static 'submit_lost_property.jpg' %}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{% static 'img10.jpg' %}" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{% static 'img11.jpg' %}" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+  
+  <br><br><br>
+
+  
+<div class="c1">
+  <div class="row r1">
+    <div class="column-66">
+      
+      <h1 class="large-font" style="color:rgba(40, 80, 255, 1);"><b>Digital solution to find your items.</b></h1>
+      <p><span style="font-size:21px">We are providing online service to find your lost items.As well as you can help others by uploading found item on the website.All Items are shown on website to find it easily.</span>
+    </div>
+    <div class="column-33">
+        <img class="img1" src="{%static 'image8.png'%}" width="700" height="700">
+    </div>
+  </div>
+</div>
+
+<div class="c1" style="background-color:#f1f1f1">
+  <div class="row r1">
+    <div class="column-33">
+      <img class="img1" src="{%static 'image07.png'%}" alt="App" width="500" height="600">
+    </div>
+    <div class="column-66">
+      
+      <h1 class="large-font" style="color:MediumSeaGreen;"><b>Easy to use</b></h1>
+      <p><span style="font-size:21px">Website is easy to use.Simply you can fill the form and submit your form.The item will be displayed on website.You can also make claim request or return request by filling form if item is on website.So when you submit form auto generated email send to that user regarding item.</span> 
+    </div>
+  </div>
+</div>
+<br><br><br>
+
+  <div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Have you lost something?</h5>
+        <p class="card-text">We are here to help you.</p>
+        <p class="card-text">Upload your lost item here so if other found then may help you.</p>
+        <a href="/lostform" class="btn btn-primary">Click Here</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Have you found something?</h5>
+        <p class="card-text">We are here to help you.</p>
+        <p class="card-text">Upload found item here so person who lost his item can see.</p>
+        <a href="/foundform" class="btn btn-primary">Click Here</a>
+      </div>
+    </div>
+  </div>
+</div>
+  <br><br>
+  <div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Show lost items</h5>
+        <p class="card-text">Here is the list of all items which are lost.</p>
+        <a href="/showlost" class="btn btn-primary">Click Here</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Show found items</h5>
+        <p class="card-text">Here is the list of all items which are found.</p>
+        <a href="/showfound" class="btn btn-primary">Click Here</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Return item</h5>
+          <p class="card-text">Here you can return item if you founded.</p>
+          <a href="/rtnform" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Claim your Item</h5>
+          <p class="card-text">Here you can claim on item</p>
+          <a href="/claim" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Show Claimed items</h5>
+          <p class="card-text">Here you can show all Claimed Items.</p>
+          <a href="/showclaim" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Show Returned items</h5>
+          <p class="card-text">Here you can show all returned Items.</p>
+          <a href="/showreturn" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Show Matching items</h5>
+          <p class="card-text">Here you can show all Matching Items.</p>
+          <a href="/showmatching" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Show lost items with Rewards</h5>
+          <p class="card-text">Win reward by finding item</p>
+          <a href="/showlostreward" class="btn btn-primary">Click Here</a>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+</body>
+</html>
+
+
+	<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+<script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
+  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
+  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
+
+
+
+</body>
+</html>

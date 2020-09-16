@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--{%load static %}
+
+<html>
+<body>
+    <form method="POST" >  
+    {% csrf_token %}
+        Name : <input type="text" value="{{sendthisuser.name}}"/>
+        
+        E-mail : <input type="text" value="{{sendthisuser.email}}"/>
+        
+        Phone Number :<input type="text" value="{{sendthisuser.phoneno}}"/>
+        Password: <input type="text" value="{{sendthisuser.password}}"/>
+    </form>
+</body>
+</html>
+-->
+
+{%load static %}
+<html>
+<head>
+
+<style>
+.card
+{
+    padding:10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color:#f1f1f1;
+}
+
+table {
+      background-color: white;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    tr:hover {background-color:#f1f1f1;}
+</style>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+<form method="POST" action="/update" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto py-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Your Profile</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                    
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" >Name  : </span>
+                                       <input type="text" class="form-control" name="name" value="{{sendthisuser.name}}" >
+                                  </div>
+                                  </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" >E-mail  : </span>
+                                  <input type="text" class="form-control" name="email" value="{{sendthisuser.email}}">
+                                </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" >Phone no:</span>
+                                    <input type="text" class="form-control" name="phoneno" value="{{sendthisuser.phoneno}}">
+                                </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" >Password :</span>
+                                  <input type="text" class="form-control" name="password" value="{{sendthisuser.password}}"/> 
+                                </div>
+                              </td>
+                            </tr>
+                           <tr> 
+                            <td><button class="btn btn-outline-primary" type="submit">Update</button></td>
+                            <td><a href="/webmainpage" class="btn btn-primary">Go Back</a> </td>
+                            </tr>
+                            <tr>
+                            {% if msg %}
+                              <td>
+                                
+                                  <input type="text" value="{{msg}}" readonly/>
+                                  
+                              </td>
+                              
+                            {% endif %}
+                            </tr>
+
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+<h1 style="text-align: center;"> Lost Item details Uploaded by you</h1>
+  <table style="margin-bottom:  10px">
+    <tr>
+      <th>Item Name</th>
+      <th>Date of lost</th>
+      <th>Recieved status</th>
+      <th>Remove Item</th>
+    </tr>
+    {% for s in stl %}
+        <tr>
+        <td>{{s.selectitem}}</td>
+        <td>{{s.date}}</td>
+        {% ifequal 1 s.recievedstatus %}
+        <td><a href="/recieved/{{s.id}}" class="btn btn-primary" >Receieved</a></td>
+        {%else%}
+        <td><button  class="btn btn-primary" disabled>Receieved</button></td>
+        {%endifequal%}
+        <td><a href="/deletelost/{{s.id}}" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {%endfor%}
+  </table>
+
+<h1 style="text-align: center;"> Found Item details Uploaded by you</h1>
+  <table style="margin-bottom:  10px">
+    <tr>
+      <th>Item Name</th>
+      <th>Date of found</th>
+      <th>Return status</th>
+      <th>Remove Item</th>
+    </tr>
+    {% for s in stf %}
+        <tr>
+        <td>{{s.selectitem}}</td>
+        <td>{{s.date}}</td>
+        {% ifequal 1 s.returnedstatus %}
+        <td><a href="/returned/{{s.id}}" class="btn btn-primary" >Returned</a></td>
+        {%else%}
+        <td><button  class="btn btn-primary" disabled>Returned</button></td>
+        {%endifequal%}
+        <td><a href="/deletefound/{{s.id}}" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {%endfor%}
+  </table>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
+

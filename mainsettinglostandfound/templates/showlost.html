@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{%load static %}
+
+<html>
+<head>
+  <title>Lost Item Form</title>
+  <link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
+  <link rel="stylesheet" href={% static 'showlost.css'%}>
+  <style>
+    body
+    {
+      background-color: #f1f1f1;
+    }
+    table {
+      background-color: white;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    tr:hover {background-color:#f1f1f1;}
+
+  </style>
+
+</head>
+<body>
+
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-light " >  
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/webmainpage">Home </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="#" >About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/logout" >Logout</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+
+ <br><br><br><br>
+ <form class="col-sm-6" method="POST" action="/searchlost">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" >Enter Item Name to search: </span>
+    </div>
+    <input type="text" class="form-control" name="searchlostitem">
+    <button class="btn btn-outline-primary" type="submit">Search Item</button>
+  </div>
+
+</form>
+
+ <br><br>
+<div ><!--style="overflow-x:auto;"-->
+  <table>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Color</th>
+      <th>Item Brand</th>
+      <th>Date of lost</th>
+      <th>Description about item</th>
+      <th>Owner of Item</th>
+      <th>Reward by user</th>
+    </tr>
+    {% for s in stl %}
+        <tr>
+        <td>{{s.selectitem}}</td>
+        <td>{{s.color}}</td>
+        <td>{{s.brand}}</td>
+        <td>{{s.date}}</td>
+        <td>{{s.description}}</td>
+        <td>{{s.ownername}}</td>
+        <td>{{s.reward}}</td>
+        </tr>
+    {%endfor%}
+  </table>
+</div>
+
+
+
+  <script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
+  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
+  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
+
+      
