@@ -1,0 +1,22 @@
+.navbar
+{
+  background-color: #9de3f0;
+}
+
+.navbar .navbar-nav li a:hover
+{
+  background-color: white;
+  opacity: 0.6;
+  border-bottom: 2px solid black;
+}
+
+.btn
+    {
+      border-radius: 20px;
+      margin-left: 10px;
+    }
+    .input-group-text,.form-control
+    {
+      border-radius: 20px;
+    }
+   
