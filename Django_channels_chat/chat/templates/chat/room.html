@@ -82,8 +82,10 @@
     <script src="{% static 'reconnecting-websocket.js' %}"></script>
     <script>
         var roomName = 'a';
-        var username = 'x';
-
+        {% comment %} var username = 'x'; {% endcomment %}
+        var username = {{ username }};
+        var userid = {{idofuser}};
+        console.log(username);
         var chatSocket = new ReconnectingWebSocket(
             'ws://' + window.location.host +
             '/ws/chat/' + roomName + '/');
@@ -124,7 +126,8 @@
             chatSocket.send(JSON.stringify({
                 'command': 'new_message',
                 'message': message,
-                'from': username
+                'from': username,
+                'idofuser':userid,
             }));
 
             messageInputDom.value = '';
@@ -142,11 +145,11 @@
         pTag.textContent = data.content;
         imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
         
-        if (author === username) {
-            msgListTag.className = 'sent';
-        } else {
-            msgListTag.className = 'replies';
-        }
+        //if (author === username) {
+        //    msgListTag.className = 'sent';
+        //} else {
+        //    msgListTag.className = 'replies';
+        //}  
         //msgListTag.appendChild(imgTag);
         //msgListTag.appendChild(pTag);
         //document.querySelector('#chat-log').appendChild(pTag);
@@ -163,6 +166,7 @@
 
 
 <!--##########################################-->
+
 {% comment %} <!DOCTYPE html>
 {% load static %}
 

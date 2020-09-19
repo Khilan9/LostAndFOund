@@ -1,6 +1,14 @@
 <html>
 <body>
-<a href="chat/"><button type="submit"> Chat</button></a>
+
+<!--<a href="chat/"><button type="submit"> Chat</button></a>-->
+<form action="chat/" method="POST">
+ {% csrf_token %}
+ Enter id :<input type="text" name="id">
+ Enter name:<input type="text"  name="username">
+ <button class="btn btn-outline-primary" type="submit">Submit</button>
+</form>
+
 
 </body>
 </html>
