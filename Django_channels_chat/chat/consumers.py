@@ -1,3 +1,6 @@
+from django.contrib.sessions.models import Session
+from django.http import HttpResponse
+
 """import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
@@ -66,12 +69,15 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
+        print(data['from'])
+        print(data['idofuser'])
         #author = data['from']
         #author_user = User.objects.filter(username=author)[0]
         message = Message.objects.create(
-            idofuser='1',
+            #idofuser='1',
+            idofuser=data['idofuser'],
             #author=author_user, 
-            content=data['message'])
+            content=data['from']+":"+data['message'])
         content = {
             'command': 'new_message',
             'message': self.message_to_json(message)
