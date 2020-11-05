@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lostandfoundweb'
+    'lostandfoundweb',
+    'channels',#added
 ]
 
 MIDDLEWARE = [
@@ -69,10 +70,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mainsettinglostandfound.wsgi.application'
-
+#Added
+ASGI_APPLICATION = 'mainsettinglostandfound.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+#Added
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 DATABASES = {  
     'default': {  
