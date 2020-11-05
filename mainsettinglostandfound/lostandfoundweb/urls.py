@@ -39,6 +39,8 @@ urlpatterns=[
     path('storereturn/<int:lostid>',views.storereturn,name='storereturn'),
     path('recieved/<int:lostid>',views.recieved,name='recieved'),
     path('recieved1',views.recieved1,name='recieved1'),
+    #Added
+    path('chat/', views.room, name='index'),
     #path('storefound',views.storefound,name='storefound')
     
 ]

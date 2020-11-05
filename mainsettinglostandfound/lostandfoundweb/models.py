@@ -29,6 +29,8 @@ class Storelost(models.Model):
     reward=models.IntegerField(default=0,blank=True)
     #Recieved or not
     recievedstatus=models.IntegerField(default=0,blank=True)
+
+    lostbranchname=models.CharField(max_length=20,blank=True)
     class Meta():
         db_table="storelost"
 
@@ -47,6 +49,10 @@ class Storefound(models.Model):
     
     returnedstatus=models.IntegerField(default=0,blank=True)
 
+    handovername=models.CharField(max_length=20,blank=True)
+
+    branchname=models.CharField(max_length=20,blank=True)
+    
     #Save image by resize so display same at webpage
     def save(self, ** kwargs):
             #Opening the uploaded image
@@ -110,3 +116,17 @@ class Chat(models.Model):
     class Meta():
         db_table="chat"
 
+class Message(models.Model):
+    idofuser=models.CharField(max_length=20)
+    content=models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    class Meta():
+        db_table="message"
+
+    def __str__(self):
+        return self.idofuser
+
+    def last_10_messages():
+        return Message.objects.order_by('-timestamp').all()
+
+    

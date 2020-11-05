@@ -12,6 +12,8 @@ from lostandfoundweb.forms import StoreclaimForm
 from lostandfoundweb.models import Storematching
 from lostandfoundweb.models import Storereturn
 import re 
+from django.utils.safestring import mark_safe
+import json
 from django.core.mail import send_mail
 from random import randint
 
@@ -23,7 +25,11 @@ def home(request):
     return render(request,"home.html")
 
 def webmainpage(request):
+    #try:
+    #    if request.session['loginvalue']==True:
     return render(request,"webmainpage.html")
+    #except:
+    #    return render(request,"home.html")
 
 def login(request):
     return render(request,"login.html")
@@ -37,10 +43,12 @@ def verifyotp(request):
     print(request.session['genotp'])
     print(type(otpr))
     print(type(request.session['genotp']))
-    
+    #----------------------------if wrong then delete this users data remaining-----------------
     if otpr == str(request.session['genotp']):
         return render(request,"webmainpage.html")
     else:
+        delthis=Newuser.objects.get(userid=request.session['sessionuserid'])
+        delthis.delete()
         return render(request,"home.html")
 
 def newuser(request):
@@ -51,9 +59,10 @@ def newuser(request):
         # name = request.POST['name']
         # phoneno = request.POST['phoneno']
         email = request.POST['email']
+        print(email[0:10])
         #dduhandlematch='^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         dduhandlematch = '^[a-z0-9]+[\._]?[a-z0-9]+[@]ddu.ac.in$'
-        if(re.search(dduhandlematch,email)):
+        if(re.search(dduhandlematch,email) and email[0:10]==request.POST['userid']):
             # password = request.POST['password']
             form = NewuserForm(request.POST)
             if form.is_valid():
@@ -70,9 +79,10 @@ def newuser(request):
                     genotp=randint(10000,100000)
                     request.session['genotp']=genotp
                     print(genotp)
-                    #message="This is auto generated mail.Your otp is {otp}.".format(otp=genotp)
-                    #subject="OTP"
-                    #send_mail(subject,message,"maradiyakhilan@gmail.com",listofadd,fail_silently=False)
+                    #Enable to send mail
+                    message="This is auto generated mail.Your otp is {otp}.".format(otp=genotp)
+                    subject="OTP"
+                    send_mail(subject,message,"maradiyakhilan@gmail.com",listofadd,fail_silently=False)
                     return render(request,"getotp.html")
                 except:
                     pass
@@ -121,33 +131,66 @@ def foundform(request):
         place1=request.POST['place']
         date1=request.POST['date']
         description1=request.POST['description']
-        
+        handovername1=request.POST['handovername']
+        branchname1=request.POST['branchname']
         print(selectitem1)
         print(color1)
         print(brand1)
         print(place1)
         print(date1)
         print(description1)
-        
+        print("Handover :"+handovername1)
+        print(branchname1)
         form=StorefoundForm(request.POST,request.FILES)
         
         if form.is_valid():
             #form.save()
+            #NOT Enable to send mail
+            """listofadd=[]
+            alluser=Newuser.objects.filter()
+            for x in alluser:
+                listofadd.append(x.email) 
+            
+            #Add the name from request.session to message
+            message="This is auto generated mail.The {item} is found of {name}.If anyone have lost then please contact {name1}".format(item=request.POST['selectitem'],name=request.session['sessionusername'],name1=request.session['sessionusername'])
+            subject="Regarding lost item"
+            send_mail(subject,message,"maradiyakhilan@gmail.com",listofadd,fail_silently=False)"""
+
+            
             print("valid")
-            Storefound.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,img=request.FILES['img'],description=description1,useridforeignfound=Newuser.objects.get(userid=request.session['sessionuserid']),foundername=request.session['sessionusername'])
+
+            if handovername1=="":
+                print("No handover")
+                #Set handovername as founder name if self is selected
+                handovername1=request.session['sessionusername']
+                
+                #Set branchname as user ids 
+                usr=Newuser.objects.get(userid=request.session['sessionuserid'])
+                print(usr.email)
+                branchname1=usr.email
+                branchname1=branchname1[2:4]
+                branchname1=branchname1.upper()
+                print(branchname1 +" if self is selected")
+                
+            
+            #Storefound.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,img=request.FILES['img'],description=description1,useridforeignfound=Newuser.objects.get(userid=request.session['sessionuserid']),foundername=request.session['sessionusername'])
+            #Storefound.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,img=request.FILES['img'],description=description1,useridforeignfound=Newuser.objects.get(userid=request.session['sessionuserid']),foundername=request.session['sessionusername'],handovername=handovername1)
+            Storefound.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,img=request.FILES['img'],description=description1,useridforeignfound=Newuser.objects.get(userid=request.session['sessionuserid']),foundername=request.session['sessionusername'],handovername=handovername1,branchname=branchname1)
             #less secure access apps is active on google account
             
             lost=Storelost.objects.all()
             flag=0
+            #Matching with lost items if found then add to matching database
             for x in lost:
-                print(x.selectitem)
-                print(x.date)
-                print(request.POST['date'])
-                
-                if x.selectitem==request.POST['selectitem'] and x.place==request.POST['place'] and str(x.date)==request.POST['date']:
-                    
+                #print(x.selectitem)
+                #print(x.date)
+                #print(request.POST['date'])
+                print(x.useridforeign.userid)
+                print(Newuser.objects.get(userid=x.useridforeign.userid).userid)
+                if x.selectitem==request.POST['selectitem'] and x.place==request.POST['place'] and str(x.date)==request.POST['date']: #and Newuser.objects.get(userid=x.useridforeign.userid).userid!=request.session['sessionuserid']:
+                    print("Entered in this")
                     id=Storefound.objects.filter(useridforeignfound=request.session['sessionuserid']).last().id
-                    print(id)
+                    #print(id)
                     Storematching.objects.create(name=x.selectitem,place=x.place,date=x.date,founditemid=Storefound.objects.get(id=id),lostitemid=Storelost.objects.get(id=x.id))
 
 
@@ -160,13 +203,13 @@ def foundform(request):
 
 def showlost(request):
     #stl=Storelost.objects.all
-    stl=Storelost.objects.values('selectitem','color', 'brand', 'place' ,'date','description','ownername','reward')
-    print(stl)
+    stl=Storelost.objects.values('selectitem','color', 'brand', 'place' ,'date','description','ownername','reward','recievedstatus','lostbranchname')
+    #print(stl)
     return render(request,"showlost.html",{'stl':stl})
 
 def showfound(request):
-    print(request.session['loginvalue'])
-   
+    #print(request.session['loginvalue'])
+    #return render(request,"showfound.html",{'stf':stf})
     try:
         if request.session['loginvalue']==True:
             stf=Storefound.objects.all
@@ -186,6 +229,8 @@ def storelost(request):
     date1=request.POST['date']
     description1=request.POST['description']
     reward1=request.POST['reward']
+    lostbranch1=request.POST['branchname']
+    
     print(selectitem1)
     print(color1)
     print(brand1)
@@ -193,8 +238,26 @@ def storelost(request):
     print(date1)
     print(description1)
     print(reward1)
+    print(lostbranch1)
     if reward1=='':
         reward1=0
+    
+    if place1=="Library":
+        print("Lib")
+        lostbranch1="Library"
+    elif place1=="CF":
+        print("CF")
+        lostbranch1="CF"
+    elif place1=="Canteen":
+        print("Canteen")
+        lostbranch1="Canteen"
+    elif place1=="Campus":
+        print("Campus")
+        lostbranch1="Campus"
+    
+    print("Lost branch is "+lostbranch1)
+        
+
     #Storelost.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,description=description1,useridforeign=request.session['sessionuserid'],ownername=request.session['sessionusername'])
     form=StorelostForm(request.POST)
     #useridforeign=Newuser.objects.get(userid=request.session['sessionuserid'])
@@ -206,8 +269,9 @@ def storelost(request):
         print(request.session['sessionuserid'])
         print(request.session['sessionusername'])
         #Storelost.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,description=description1,useridforeign=Newuser.objects.get(userid=request.session['sessionuserid']),ownername=request.session['sessionusername'])
-        Storelost.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,description=description1,reward=reward1,useridforeign=Newuser.objects.get(userid=request.session['sessionuserid']),ownername=request.session['sessionusername'])
-        #Active this for sending email
+        #Storelost.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,description=description1,reward=reward1,useridforeign=Newuser.objects.get(userid=request.session['sessionuserid']),ownername=request.session['sessionusername'])
+        Storelost.objects.create(selectitem=selectitem1,color=color1,brand=brand1,place=place1,date=date1,description=description1,reward=reward1,useridforeign=Newuser.objects.get(userid=request.session['sessionuserid']),ownername=request.session['sessionusername'],lostbranchname=lostbranch1)
+        #NOT Enable to send mail
         """listofadd=[]
         alluser=Newuser.objects.filter()
         for x in alluser:
@@ -227,8 +291,12 @@ def storelost(request):
             print(x.date)
             print(request.POST['date'])
             
-            if x.selectitem==request.POST['selectitem'] and x.place==request.POST['place'] and str(x.date)==request.POST['date']:
-                
+            if x.selectitem==request.POST['selectitem'] and x.place==request.POST['place'] and str(x.date)==request.POST['date']:# and Newuser.objects.get(userid=x.useridforeignfound.userid).userid!=request.session['sessionuserid']:
+                #print(Newuser.objects.filter(userid=request.session['sessionuserid']))
+                #print(x.useridforeignfound.id)
+                print(Newuser.objects.get(userid=x.useridforeignfound.userid).userid)
+                print(request.session['sessionuserid'])
+                               
                 id=Storelost.objects.filter(useridforeign=request.session['sessionuserid']).last().id
                 print(id)
                 Storematching.objects.create(name=x.selectitem,place=x.place,date=x.date,founditemid=Storefound.objects.get(id=x.id),lostitemid=Storelost.objects.get(id=id))
@@ -314,16 +382,38 @@ def update(request):
         print(form.errors)
         print("not valid")
     """
+    print(request.POST['password'])
+    print(request.POST['newpassword'])
+    print(request.POST['renewpassword'])
+
+    if request.POST['password']=='':
+        print("pass is null")
+
     if request.method=="POST":
-        Newuser.objects.filter(userid=request.session['sessionuserid']).update(name=request.POST['name'])
-        Newuser.objects.filter(userid=request.session['sessionuserid']).update(email=request.POST['email'])
-        Newuser.objects.filter(userid=request.session['sessionuserid']).update(phoneno=request.POST['phoneno'])
-        Newuser.objects.filter(userid=request.session['sessionuserid']).update(password=request.POST['password'])
-        Storelost.objects.filter(useridforeign=request.session['sessionuserid']).update(ownername=request.POST['name'])
-        Storefound.objects.filter(useridforeignfound=request.session['sessionuserid']).update(foundername=request.POST['name'])
+        #Newuser.objects.filter(userid=request.session['sessionuserid']).update(name=request.POST['name'])
+        #Newuser.objects.filter(userid=request.session['sessionuserid']).update(email=request.POST['email'])
+        #Newuser.objects.filter(userid=request.session['sessionuserid']).update(phoneno=request.POST['phoneno'])
+        
+        usr=Newuser.objects.get(userid=request.session['sessionuserid'])
+        msg=""
+        if request.POST['phoneno']!=usr.phoneno:
+            Newuser.objects.filter(userid=request.session['sessionuserid']).update(phoneno=request.POST['phoneno'])
+            msg+="Phone no updated successfully "
+            
+        if request.POST['password']!='':
+            if usr.password==request.POST['password']:
+                if request.POST['newpassword']==request.POST['renewpassword']:
+                    Newuser.objects.filter(userid=request.session['sessionuserid']).update(password=request.POST['newpassword'])
+                    msg+="Password updated successfully"
+                else:
+                    msg+="New Entered password must match with reentered entered password"
+            else:
+                msg+="Password is not correct"
+        #Storelost.objects.filter(useridforeign=request.session['sessionuserid']).update(ownername=request.POST['name'])
+        #Storefound.objects.filter(useridforeignfound=request.session['sessionuserid']).update(foundername=request.POST['name'])
 
         sendthisuser=Newuser.objects.get(userid=request.session['sessionuserid'])
-        msg="Data updated successfully"
+        
 
         stf1=Storefound.objects.all()
         #stf1.filter(useridforeignfound__icontains=request.session['sessionuserid'])
@@ -428,12 +518,12 @@ def searchclaim(request):
     stf=Storefound.objects.filter(selectitem=request.POST['selectitem'])
     stf=stf.filter(place=request.POST['place'])
     stf=stf.filter(date=request.POST['date'])
-    
+    request.session['sessionclaimdetailsemail']=request.POST['claimdetailsemail']
     return render(request,"searchclaim.html",{'stf':stf})
 
 def storeclaim(request,foundid):
     #Send mail and store into claim database and button enable for returnedstatus
-    """
+    
     listofadd=[]
     stf=Storefound.objects.get(id=foundid)
     
@@ -442,11 +532,16 @@ def storeclaim(request,foundid):
     print(usr.email)
     listofadd.append(usr.email)
     
+    if 'sessionclaimdetailsemail' not in request.session:
+        message="This is auto generated mail.{name} is claiming for {item}.Please contact through chat support or any other way .Please verify this user from your side and if valid then after giving item in your profile page press Returned button and enter {id}.".format(name=request.session['sessionusername'],item=stf.selectitem,id=request.session['sessionuserid'])    
+    else:
+        message="This is auto generated mail.{name} is claiming for {item}.Please contact through chat support or any other way .Please verify this user from your side and if valid then after giving item in your profile page press Returned button and enter {id}.Information from user :{information}".format(name=request.session['sessionusername'],item=stf.selectitem,id=request.session['sessionuserid'],information=request.session['sessionclaimdetailsemail'])    
+    #Enable to send mail
     #Add the name from request.session to message
-    message="This is auto generated mail.{name} is claiming for {item}.Please contact through chat support or any other way .Please verify this user from your side and if valid then after giving item in your profile page press Returned button and enter {id}.".format(name=request.session['sessionusername'],item=stf.selectitem,id=request.session['sessionuserid'])
+    #message="This is auto generated mail.{name} is claiming for {item}.Please contact through chat support or any other way .Please verify this user from your side and if valid then after giving item in your profile page press Returned button and enter {id}.Information from user :{information}".format(name=request.session['sessionusername'],item=stf.selectitem,id=request.session['sessionuserid'],information=request.session['sessionclaimdetailsemail'])
     subject="Regarding Claiming of item"
     send_mail(subject,message,"maradiyakhilan@gmail.com",listofadd,fail_silently=False)
-    """
+    
     print(foundid)
     stf=Storefound.objects.get(id=foundid)
     #Enable returned button
@@ -538,12 +633,13 @@ def searchreturn(request):
     stl=Storelost.objects.filter(selectitem=request.POST['selectitem'])
     stl=stl.filter(place=request.POST['place'])
     stl=stl.filter(date=request.POST['date'])
-    
+    request.session['sessionreturndetailsemail']= request.POST['returndetailsemail']
+    print(request.POST['returndetailsemail'])
     return render(request,"searchreturn.html",{'stl':stl})
     
 def storereturn(request,lostid):
     #Send mail and store into return database and button enable for Recievedstatus
-    """
+    
     listofadd=[]
     stl=Storelost.objects.get(id=lostid)
     
@@ -551,12 +647,18 @@ def storereturn(request,lostid):
     usr=Newuser.objects.get(userid=stl.useridforeign.userid)
     print(usr.email)
     listofadd.append(usr.email)
+    #print(request.session['sessionreturndetailsemail'])
     
+    if 'sessionreturndetailsemail' not in request.session:
+        message="This is auto generated mail.{name} is founded your {item}.Please contact through chat support or any other way.Please enter ID of this user after recieving item.ID is {id}.".format(name=request.session['sessionusername'],item=stl.selectitem,id=request.session['sessionuserid'])
+    else:
+        message="This is auto generated mail.{name} is founded your {item}.Please contact through chat support or any other way.Please enter ID of this user after recieving item.ID is {id}. Information from user:{information}".format(name=request.session['sessionusername'],item=stl.selectitem,id=request.session['sessionuserid'],information=request.session['sessionreturndetailsemail'])
+    #Enable to send mail
     #Add the name from request.session to message
-    message="This is auto generated mail.{name} is founded your {item}.Please contact through chat support or any other way.Please enter ID of this user after recieving item.ID is {id}.".format(name=request.session['sessionusername'],item=stl.selectitem,id=request.session['sessionuserid'])
+    #message="This is auto generated mail.{name} is founded your {item}.Please contact through chat support or any other way.Please enter ID of this user after recieving item.ID is {id}. Information from user:{information}".format(name=request.session['sessionusername'],item=stl.selectitem,id=request.session['sessionuserid'],information=request.session['sessionreturndetailsemail'])
     subject="Regarding item founded"
     send_mail(subject,message,"maradiyakhilan@gmail.com",listofadd,fail_silently=False)
-    """
+    
     print(lostid)
     stl=Storelost.objects.get(id=lostid)
     #Enable recieved button
@@ -590,4 +692,16 @@ def recieved1(request):
     except:
         m="Please enter correct ID that you recieved in mail."
         return render(request,"getfounderid.html",{"msg":m})
-    
+
+
+def room(request, room_name='a'):
+    #request.session['sessionuserid']=request.POST['id']
+    #request.session['sessionusernme']=request.POST['username']
+    print(request.session['sessionuserid'])
+    print(request.session['sessionusername'])
+    return render(request, 'chat/room.html', {
+        'room_name': 'a',
+        'username': mark_safe(json.dumps(request.session['sessionusername'])),
+        'idofuser': mark_safe(json.dumps(request.session['sessionuserid'])),
+    })
+
