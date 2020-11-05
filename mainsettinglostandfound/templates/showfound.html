@@ -40,7 +40,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="#" >About Us</a>
+        <a class="nav-link " href="/chat" >Chat</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/profile" >Profile</a>
@@ -104,13 +104,17 @@
     <div class="row">
         {% for s in stf %}
             <div class="col-auto">
+
+            {% ifequal 2 s.returnedstatus %}
+
+             {%else%}
                 <div class="card border-primary mb-3">
                     
                         <img style="height: 200px; width: 100%; display: block;" src="{{s.img.url}}" alt="Card image">
                     
                     <div class="card-header">
                         {% if s.markasnotclaim %}
-                          <b>{{s.selectitem}}</b>
+                          <b>{{s.selectitem}}*</b>
                         {% else %}
                           <b>{{s.selectitem}}</b>
                         {% endif %}
@@ -123,8 +127,11 @@
                         <p class="card-text">Date : {{s.date}}</p>
                         <p class="card-text">Description : {{s.description}}</p>
                         <p class="card-text">Founded by : {{s.foundername}}</p>
+                        <p class="card-text">Handedover To: {{s.handovername}}</p>
+                        <p class="card-text">Branch : {{s.branchname}}</p>
                     </div>
                 </div>
+               {%endifequal%}
             </div>
         {% endfor %}
     </div>

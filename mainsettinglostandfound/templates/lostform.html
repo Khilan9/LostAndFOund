@@ -20,6 +20,24 @@
         else
             document.form.submit();
     }
+
+    function hideshowbranch()
+    {
+        var p=document.getElementById('place').value;
+
+        if(p=="Classroom")
+        {
+            document.getElementById("branchselect").style.display='block';
+        }
+        else if(p=="Lab")
+        {
+            document.getElementById("branchselect").style.display='block';
+        }
+        else
+        {
+            document.getElementById("branchselect").style.display='none';
+        }
+    }
     </script>
 
 </head>
@@ -37,7 +55,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="#" >About Us</a>
+        <a class="nav-link " href="/chat" >Chat</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/profile" >Profile</a>
@@ -87,7 +105,7 @@
 
       <div class="form-group" >
         <label >Select place from where it get lost</label>
-        <select  class="form-control" name="place" >
+        <select  class="form-control" name="place" id="place" onchange="hideshowbranch()">
           <option>Classroom</option>
           <option>Lab</option>
           <option>Library</option>
@@ -102,6 +120,19 @@
         <label>Date of lost</label><br>
         <input type="Date" name="date" id="ef">
       </div>
+
+      <div class="form-group" id="branchselect">
+        <label >Select Department from item lost</label>
+        <select  class="form-control"  name="branchname">
+          <option>IT</option>
+          <option>CE</option>
+          <option>EC</option>
+          <option>MH</option>
+          <option>CL</option>
+          <option>CH</option>
+          <option>IC</option>
+        </select>
+    </div>
 
       <div class="form-group" >
         <label>Reward</label><small>  (optional)</small><br>
@@ -127,6 +158,10 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+  {% comment %} <script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
+  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
+  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
+ {% endcomment %}
 
 </body>
 </html>

@@ -41,35 +41,74 @@ table {
       padding: 8px;
     }
     tr:hover {background-color:#f1f1f1;}
+
+    .navbar
+    {
+      background-color: #9de3f0;
+    }
+
+    .navbar .navbar-nav li a:hover
+    {
+      background-color: white;
+      opacity: 0.6;
+      border-bottom: 2px solid black;
+    }
 </style>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+{% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
 
 </head>
 <body>
 
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-light " >  
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/webmainpage">Home </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="/chat" >Chat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/logout" >Logout</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+
+<br><br><br>
 <form method="POST" action="/update" enctype="multipart/form-data">
 {% csrf_token %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6 mx-auto py-4">
+        <div class="col-md-10 mx-auto py-4">
             <div class="card">
                 <div class="card-header">
-                    <h1>Your Profile</h1>
+                    <h1>Update Profile</h1>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
                     
-                            <tr>
+                            {% comment %} <tr>
                                 <td>
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" >Name  : </span>
                                        <input type="text" class="form-control" name="name" value="{{sendthisuser.name}}" >
                                   </div>
                                   </td>
-                            </tr>
-
+                            </tr> {% endcomment %}
+{% comment %} 
                             <tr>
                                 <td>
                                   <div class="input-group-prepend">
@@ -77,12 +116,12 @@ table {
                                   <input type="text" class="form-control" name="email" value="{{sendthisuser.email}}">
                                 </div>
                                 </td>
-                            </tr>
-                            
+                            </tr> {% endcomment %}
+
                             <tr>
                                 <td>
                                   <div class="input-group-prepend">
-                                    <span class="input-group-text" >Phone no:</span>
+                                    <span class="input-group-text" style="padding-right:100px">Phone no:</span>
                                     <input type="text" class="form-control" name="phoneno" value="{{sendthisuser.phoneno}}">
                                 </div>
                                 </td>
@@ -90,24 +129,42 @@ table {
                             <tr>
                                 <td>
                                   <div class="input-group-prepend">
-                                    <span class="input-group-text" >Password :</span>
-                                  <input type="text" class="form-control" name="password" value="{{sendthisuser.password}}"/> 
+                                    <span class="input-group-text" style="padding-right:40px">Current Password :</span>
+                                  {% comment %} <input type="text" class="form-control" name="password" value="{{sendthisuser.password}}"/>  {% endcomment %}
+                                    <input type="text" class="form-control" name="password" /> 
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" style="padding-right:25px">Enter new Password :</span>
+                                  <input type="text" class="form-control" name="newpassword" /> 
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" style="padding-right:7px">Reenter new Password :</span>
+                                  <input type="text" class="form-control" name="renewpassword" /> 
                                 </div>
                               </td>
                             </tr>
                            <tr> 
                             <td><button class="btn btn-outline-primary" type="submit">Update</button></td>
-                            <td><a href="/webmainpage" class="btn btn-primary">Go Back</a> </td>
+                            {% comment %} <td><a href="/webmainpage" class="btn btn-primary">Go Back</a> </td> {% endcomment %}
                             </tr>
                             <tr>
                             {% if msg %}
                               <td>
-                                
-                                  <input type="text" value="{{msg}}" readonly/>
+                                  <span class="input-group-text" style="padding-right:7px ">{{msg}}</span>
                                   
                               </td>
                               
                             {% endif %}
+                            </tr>
+                            <tr><td><a href="/webmainpage" class="btn btn-primary">Home Page</a> </td>
                             </tr>
 
                     </table>
@@ -168,6 +225,9 @@ table {
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
+  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
+  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
 
 
 </body>

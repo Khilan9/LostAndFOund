@@ -43,7 +43,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="#" >About Us</a>
+        <a class="nav-link " href="/chat" >Chat</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/profile" >Profile</a>
@@ -74,23 +74,30 @@
   <table>
     <tr>
       <th>Item Name</th>
-      <th>Item Color</th>
-      <th>Item Brand</th>
-      <th>Date of lost</th>
-      <th>Description about item</th>
-      <th>Owner of Item</th>
-      <th>Reward by user</th>
+      <th>Color</th>
+      <th>Brand</th>
+      <th>Date</th>
+      <th>Place </th>
+      <th>Description </th>
+      <th>Owner</th>
+      <th>Reward </th>
+      <th>Department</th>
     </tr>
     {% for s in stl %}
+      {% ifequal 2 s.recievedstatus %}
+      {% else %}
         <tr>
         <td>{{s.selectitem}}</td>
         <td>{{s.color}}</td>
         <td>{{s.brand}}</td>
         <td>{{s.date}}</td>
+        <td>{{s.place}}</td>   
         <td>{{s.description}}</td>
         <td>{{s.ownername}}</td>
         <td>{{s.reward}}</td>
+        <td>{{s.lostbranchname}}<td>
         </tr>
+      {%endifequal %}
     {%endfor%}
   </table>
 </div>

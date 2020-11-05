@@ -15,13 +15,51 @@
       var y = document.getElementById('cd').value;
       var z = document.getElementById('ef').value;
       var g = document.getElementById('gh').value;
-        if (x == null || x == 0 || x == "0" || y == null || y == 0 || y == "0" || z == null || z == 0 || z == "0"|| g == null || g == 0 || g == "0") 
+      
+          if(document.getElementById('fac').checked)
+          {
+              var m=  document.getElementById('handovername').value;
+              if(m==null || m==0 || m=="0" || x == null || x == 0 || x == "0" || y == null || y == 0 || y == "0" || z == null || z == 0 || z == "0"|| g == null || g == 0 || g == "0") 
+              {
+                alert("Please enter all values");
+              }
+              else
+                  document.form.submit();
+          }
+          else
+          {
+            if(x == null || x == 0 || x == "0" || y == null || y == 0 || y == "0" || z == null || z == 0 || z == "0"|| g == null || g == 0 || g == "0") 
+            {
+              alert("Please enter all values");
+            }
+            else
+                document.form.submit();
+          }
+
+        {% comment %} if (x == null || x == 0 || x == "0" || y == null || y == 0 || y == "0" || z == null || z == 0 || z == "0"|| g == null || g == 0 || g == "0") 
         {
+          
             alert("Please enter all values");
         }
         else
-            document.form.submit();
+            document.form.submit(); {% endcomment %}
+
+        
     }
+
+
+    function hidefac()
+    {
+    		document.getElementById("facname").style.display='block';
+        document.getElementById("branchselect").style.display='block';
+    }
+
+    function hideself()
+    {
+    		document.getElementById("facname").style.display='none';
+        document.getElementById("branchselect").style.display='none';
+    }
+
     </script>
 
 </head>
@@ -40,7 +78,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link " href="#" >About Us</a>
+        <a class="nav-link " href="/chat" >Chat</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/profile" >Profile</a>
@@ -107,6 +145,38 @@
         <label>Date of found</label><br>
         <input type="Date" name="date" id="ef">
       </div>
+
+    <div class="form-group">
+		  <label>Handover To Whom:</label>
+		  <div class="form-row col-md-auto">
+		  <div class="col">
+			  <input class="form-check-input" type="radio" value="fac" id="fac" onclick="hidefac()" name="exampleRadios" checked>
+			  <label>Faculty</label>
+		  </div>
+		    <div class="col">
+		  		<input class="form-check-input" type="radio" value="self" id="self" onclick="hideself()" name="exampleRadios"  >
+		  		<label>Self</label>
+		    </div>
+		  </div>
+	  </div>
+    
+    <div class="form-group" id="facname" >
+      	<label>Enter Faculty Name:</label><br>
+ 	       <input type="text" id="handovername" class="form-control" placeholder="Faculty Name" name="handovername">
+    </div>
+
+    <div class="form-group" id="branchselect">
+        <label >Select Branch</label>
+        <select  class="form-control" name="branchname">
+          <option>IT</option>
+          <option>CE</option>
+          <option>EC</option>
+          <option>MH</option>
+          <option>CL</option>
+          <option>CH</option>
+          <option>IC</option>
+        </select>
+    </div>
 
       <div class="form-group">
       	<label>Upload image of founded item</label><br>
