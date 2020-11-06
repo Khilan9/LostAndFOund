@@ -56,6 +56,8 @@ table {
 </style>
 
 {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% endcomment %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
 <link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
 
 </head>
@@ -88,35 +90,122 @@ table {
 </nav>
 
 <br><br><br>
+<br>
+
+
 <form method="POST" action="/update" enctype="multipart/form-data">
 {% csrf_token %}
-<div class="container">
+	<div class="container">
+     	<div class="row card d-flex justify-content-center">
+            <div class="col-md-10">
+             	<div class="row z-depth-3">
+                 	<div class="col-sm-4 bg-info rounded-left">
+        		        <div class="card-block text-center text-white">
+                		    <i class="fas fa-id-card fa-7x mt-5"></i>
+                    		<h2 class="font-weight-bold mt-4">{{sendthisuser.name}}</h2>
+                		</div>
+            		</div>
+            		<div class="col-sm-8 bg-white rounded-right">
+                    	<h3 class="mt-3 text-center">Profile</h3>
+
+                    	<hr class="bg-primary mt-0 w-25">
+                      <div class="row">
+                        	<div class="col-sm-6">
+                        		<p class="font-weight-bold">{{msg}}</p>
+                        	</div>
+                      </div>
+                   		<div class="row">
+                        	<div class="col-sm-6">
+                            	<p class="font-weight-bold">Email:</p>
+                           		<h6 class=" text-muted">{{sendthisuser.email}}</h6>
+                        	</div>
+                        	
+                    	</div>
+                    		
+                    	<hr class="bg-primary">
+
+                		<div class="row">
+                			<div class="col-sm-6">
+                        		<p class="font-weight-bold">Phone:</p>
+                       			<input type="text" class="form-control" name="phoneno" value="{{sendthisuser.phoneno}}">
+                    		</div>
+                    	</div>
+
+						<hr class="bg-primary">                    		
+
+                   		<div class="row">
+                        	<div class="col-sm-6">
+                           		<p class="font-weight-bold">Password</p>
+                          	  	<input type="text" class="form-control" name="password">
+                        	</div>
+                    	</div>
+                	   	<hr class="bg-primary">
+
+                	   	<div class="row">
+                        	<div class="col-sm-6">
+                           		<p class="font-weight-bold">Enter new Password</p>
+                          	  	<input type="text" class="form-control" name="newpassword">
+                        	</div>
+                    	</div>
+                	   	<hr class="bg-primary">
+
+                	   	<div class="row">
+                        	<div class="col-sm-6">
+                           		<p class="font-weight-bold">Reenter new Password</p>
+                          	  	<input type="text" class="form-control" name="renewpassword">
+                        	</div>
+                    	</div>
+                	   	<hr class="bg-primary">
+
+						          
+
+                	   	<div class="row">
+                        	<div class="col-sm-6">
+                           		<button class="btn btn-primary" type="submit">Update</button>
+                        	</div>
+                        	<div class="col-sm-6">
+                           		<a href="/webmainpage" class="btn btn-primary">Home Page</a>
+                        	</div>
+                    	</div>
+                	    
+              		</div>
+             	</div>
+            </div>
+        </div>
+	</div>
+</form>
+
+{% comment %} 
+<form method="POST" action="/update" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="container ">
     <div class="row">
-        <div class="col-md-10 mx-auto py-4">
+        <div class="col-md-11 mx-auto py-4">
             <div class="card">
                 <div class="card-header">
-                    <h1>Update Profile</h1>
+                    <center><h1>Update Profile</h1></center>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
                     
-                            {% comment %} <tr>
-                                <td>
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" >Name  : </span>
-                                       <input type="text" class="form-control" name="name" value="{{sendthisuser.name}}" >
-                                  </div>
-                                  </td>
-                            </tr> {% endcomment %}
-{% comment %} 
                             <tr>
-                                <td>
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" >E-mail  : </span>
-                                  <input type="text" class="form-control" name="email" value="{{sendthisuser.email}}">
+                              <td>
+                                 <div class="input-group-prepend">
+                                  <span class="input-group-text" style="display:inline;padding-right:120px">Name  : </span>
+                                  
+                                  <input type="text" class="form-control" value="{{sendthisuser.name}}" readonly>
                                 </div>
-                                </td>
-                            </tr> {% endcomment %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" style="display:inline;padding-right:120px">E-mail  : </span>
+                                  <input type="text" class="form-control" value="{{sendthisuser.email}}" readonly>
+                                </div>
+                              </td>
+                            </tr>
 
                             <tr>
                                 <td>
@@ -130,7 +219,6 @@ table {
                                 <td>
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" style="padding-right:40px">Current Password :</span>
-                                  {% comment %} <input type="text" class="form-control" name="password" value="{{sendthisuser.password}}"/>  {% endcomment %}
                                     <input type="text" class="form-control" name="password" /> 
                                 </div>
                               </td>
@@ -153,7 +241,7 @@ table {
                             </tr>
                            <tr> 
                             <td><button class="btn btn-outline-primary" type="submit">Update</button></td>
-                            {% comment %} <td><a href="/webmainpage" class="btn btn-primary">Go Back</a> </td> {% endcomment %}
+                            
                             </tr>
                             <tr>
                             {% if msg %}
@@ -166,40 +254,102 @@ table {
                             </tr>
                             <tr><td><a href="/webmainpage" class="btn btn-primary">Home Page</a> </td>
                             </tr>
-
                     </table>
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-</form>
+</form> {% endcomment %}
+
+<br><br><br>
 
 
-<h1 style="text-align: center;"> Lost Item details Uploaded by you</h1>
-  <table style="margin-bottom:  10px">
-    <tr>
-      <th>Item Name</th>
-      <th>Date of lost</th>
-      <th>Recieved status</th>
-      <th>Remove Item</th>
-    </tr>
-    {% for s in stl %}
-        <tr>
-        <td>{{s.selectitem}}</td>
-        <td>{{s.date}}</td>
-        {% ifequal 1 s.recievedstatus %}
-        <td><a href="/recieved/{{s.id}}" class="btn btn-primary" >Receieved</a></td>
-        {%else%}
-        <td><button  class="btn btn-primary" disabled>Receieved</button></td>
-        {%endifequal%}
-        <td><a href="/deletelost/{{s.id}}" class="btn btn-danger">Delete</a></td>
-        </tr>
-    {%endfor%}
-  </table>
 
-<h1 style="text-align: center;"> Found Item details Uploaded by you</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mx-auto py-4">
+            <div class="card">
+                  <div class="card-header">
+                    <h1 style="text-align: center;"> Lost Item details </h1>
+                  </div>
+                  <div class="card-body">
+                    <table style="margin-bottom:  10px">
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Date of lost</th>
+                        <th>Recieved status</th>
+                        <th>Remove Item</th>
+                      </tr>
+                      {% for s in stl %}
+                          <tr>
+                          <td>{{s.selectitem}}</td>
+                          <td>{{s.date}}</td>
+                          {% ifequal 1 s.recievedstatus %}
+                          <td><a href="/recieved/{{s.id}}" class="btn btn-primary" >Receieved</a></td>
+                          {%else%}
+                          <td><button  class="btn btn-primary" disabled>Receieved</button></td>
+                          {%endifequal%}
+                          <td><a href="/deletelost/{{s.id}}" class="btn btn-danger">Delete</a></td>
+                          </tr>
+                      {%endfor%}
+                    </table>
+           			</div>
+			      </div>
+		    </div>
+	  </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mx-auto py-4">
+            <div class="card">
+                  <div class="card-header">
+                    <h1 style="text-align: center;"> Found Item details </h1>
+                  </div>
+                  <div class="card-body">
+                    <table style="margin-bottom:  10px">
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Date of found</th>
+                        <th>Return status</th>
+                        <th>Remove Item</th>
+                      </tr>
+                      {% for s in stf %}
+                          <tr>
+                          <td>{{s.selectitem}}</td>
+                          <td>{{s.date}}</td>
+                          {% ifequal 1 s.returnedstatus %}
+                          <td><a href="/returned/{{s.id}}" class="btn btn-primary" >Returned</a></td>
+                          {%else%}
+                          <td><button  class="btn btn-primary" disabled>Returned</button></td>
+                          {%endifequal%}
+                          <td><a href="/deletefound/{{s.id}}" class="btn btn-danger">Delete</a></td>
+                          </tr>
+                      {%endfor%}
+                    </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
+  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
+  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
+
+
+
+{% comment %} <h1 style="text-align: center;"> Found Item details Uploaded by you</h1>
   <table style="margin-bottom:  10px">
     <tr>
       <th>Item Name</th>
@@ -219,17 +369,7 @@ table {
         <td><a href="/deletefound/{{s.id}}" class="btn btn-danger">Delete</a></td>
         </tr>
     {%endfor%}
-  </table>
+  </table> {% endcomment %}
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="{% static 'bootstrapfiles/jquery-3.4.1.slim.min.js' %}" ></script>
-  <script src="{% static  'bootstrapfiles/popper.min.js'  %}"></script>
-  <script src="{% static 'bootstrapfiles/bootstrap.min.js' %}"></script>
-
-
-</body>
-</html>
-
+{% comment %} <span class="input-group-text" style="display:inline;">{{sendthisuser.name}}</span> {% endcomment %}
