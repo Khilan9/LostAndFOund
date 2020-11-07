@@ -3,9 +3,10 @@
 
 <html>
 <head>
-  <title>Lost Item Form</title>
+  <title>Lost Items</title>
   <link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
   <link rel="stylesheet" href={% static 'showlost.css'%}>
+  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
   <style>
     body
     {
@@ -24,6 +25,10 @@
       padding: 8px;
     }
     tr:hover {background-color:#f1f1f1;}
+
+    table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
+}
 
   </style>
 
@@ -71,8 +76,8 @@
 
  <br><br>
 <div ><!--style="overflow-x:auto;"-->
-  <table>
-    <tr>
+  <table class="sortable">
+    <tr class="item">
       <th>Item Name</th>
       <th>Color</th>
       <th>Brand</th>
@@ -92,7 +97,7 @@
         <td>{{s.brand}}</td>
         <td>{{s.date}}</td>
         <td>{{s.place}}</td>   
-        <td>{{s.description}}</td>
+        <td class="text-wrap" style="width: 15rem;">{{s.description}}</td>
         <td>{{s.ownername}}</td>
         <td>{{s.reward}}</td>
         <td>{{s.lostbranchname}}<td>

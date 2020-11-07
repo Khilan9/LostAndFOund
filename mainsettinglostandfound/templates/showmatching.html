@@ -57,7 +57,7 @@
 </nav>
 
  <br><br><br><br>
- <form class="col-sm-6" method="POST" action="/searchlost">
+ {% comment %} <form class="col-sm-6" method="POST" action="/searchlost">
   {% csrf_token %}
   <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -67,7 +67,7 @@
     <button class="btn btn-outline-primary" type="submit">Search Item</button>
   </div>
 
-</form>
+</form> {% endcomment %}
 
  <br><br>
 <div ><!--style="overflow-x:auto;"-->

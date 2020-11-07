@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>Claim Items List</title>
+  <title>Return Items List</title>
   <link rel="stylesheet" href="{% static 'bootstrapfiles/bootstrap.min.css' %}">
   <link rel="stylesheet" href={% static 'showlost.css'%}>
   <style>
@@ -57,17 +57,7 @@
 </nav>
 
  <br><br><br><br>
- <form class="col-sm-6" method="POST" action="/searchlost">
-  {% csrf_token %}
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" >Enter Item Name to search: </span>
-    </div>
-    <input type="text" class="form-control" name="searchlostitem">
-    <button class="btn btn-outline-primary" type="submit">Search Item</button>
-  </div>
 
-</form>
 
  <br><br>
 <div ><!--style="overflow-x:auto;"-->

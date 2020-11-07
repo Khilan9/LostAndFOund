@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <link rel="stylesheet" href={% static 'showlost.css'%}>
+
 </head>
 <body>
 
@@ -125,7 +126,7 @@
                         <p class="card-text">Brand : {{s.brand}}</p>
                         <p class="card-text">Place : {{s.place}}</p>
                         <p class="card-text">Date : {{s.date}}</p>
-                        <p class="card-text">Description : {{s.description}}</p>
+                        <p class="card-text text-wrap" style="width: 15rem;">Description : {{s.description}}</p>
                         <p class="card-text">Founded by : {{s.foundername}}</p>
                         <p class="card-text">Handedover To: {{s.handovername}}</p>
                         <p class="card-text">Branch : {{s.branchname}}</p>
