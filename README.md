@@ -39,6 +39,29 @@ reward money also.This web-application are developed using Django Framework as b
 
 
 ## Screenshots
+1. Login
+![Login](https://github.com/Khilan9/LostAndFound/blob/master/Images/Login.png)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+2. Home Page
+![Home](https://github.com/Khilan9/LostAndFound/blob/master/Images/Homepage.png)
 
+3. Lost Item Registration
+![LostRegister](https://github.com/Khilan9/LostAndFound/blob/master/Images/LostItemRegister.png)
+
+4. Found Item Registration
+![FoundRegister](https://github.com/Khilan9/LostAndFound/blob/master/Images/FoundItemRegister.png)
+
+5. Lost Items List
+![LostList](https://github.com/Khilan9/LostAndFound/blob/master/Images/LostItemsList.png)
+
+6. Found Items List
+![FoundList](https://github.com/Khilan9/LostAndFound/blob/master/Images/FoundItems.png)
+
+7. Claim Request
+![Claim](https://github.com/Khilan9/LostAndFound/blob/master/Images/ClaimRequest.png)
+
+8. Return Request
+![Return](https://github.com/Khilan9/LostAndFound/blob/master/Images/ReturnRequest.png)
+
+14. Chat
+![Chat](https://github.com/Khilan9/LostAndFound/blob/master/Images/Chat.png)
