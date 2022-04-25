@@ -39,6 +39,8 @@ class Migration(migrations.Migration):
                 ('foundername', models.CharField(blank=True, max_length=10)),
                 ('markasnotclaim', models.BooleanField(blank=True, default=False)),
                 ('returnedstatus', models.IntegerField(blank=True, default=0)),
+                ('handovername', models.CharField(blank=True, max_length=20)),
+                ('branchname', models.CharField(blank=True, max_length=20)),
                 ('useridforeignfound', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='lostandfoundweb.Newuser')),
             ],
             options={
@@ -58,6 +60,7 @@ class Migration(migrations.Migration):
                 ('ownername', models.CharField(blank=True, max_length=10)),
                 ('reward', models.IntegerField(blank=True, default=0)),
                 ('recievedstatus', models.IntegerField(blank=True, default=0)),
+                ('lostbranchname', models.CharField(blank=True, max_length=20)),
                 ('useridforeign', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='lostandfoundweb.Newuser')),
             ],
             options={

@@ -143,7 +143,7 @@ MEDIA_URL = '/media/'
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
 EMAIL_HOST_USER="maradiyakhilan@gmail.com"
-with open('C:/Users/marad/Desktop/SDP PROJECT/mainsettinglostandfound/lostandfoundweb/data.txt', 'r') as file:
+with open('C:/Users/Khilan/Desktop/temp/LostAndFound/mainsettinglostandfound/lostandfoundweb/data.txt', 'r') as file:
         data = file.read()
 EMAIL_HOST_PASSWORD=data
 EMAIL_USE_TLS=True
